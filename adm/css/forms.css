@@ -2,10 +2,10 @@
     text-align: center;
     width: 350px;
     align-content: center;
-    background-color: dimgray;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
+    
 }
 
 input{
@@ -21,7 +21,15 @@ input{
     background-color: lightgray;
 }
 
+
+input[type="file"] {
+    
+    background-color: white;
+    text-align: center;
+}
+
+
 label{
-    color: white;
+    
 }
 

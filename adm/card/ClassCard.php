@@ -125,64 +125,48 @@ class Card extends Conn {
 			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
 		    $logo = $_FILES['logo']['name'];
             $subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
-            
-        			
+            		
 			$sql = $this->connect->prepare("UPDATE card SET id = :id, logo = :logo WHERE (id = :id)");
 
 			$sql->bindValue(":id",$id);
 			$sql->bindValue(":logo",$logo);
 				
-            if ($sql->execute()) {
-
-                $diretorio_logo = "../img/" . $subdominio . "/" ;
+            $sql->execute(); 
                 
-                  
-                if(move_uploaded_file($_FILES['logo']['tmp_name'], $diretorio_logo.$logo)){
-                    
-                header ("location: ../home.php");
-			     return true;
-                }
-                
-                }
-
+            header ("location: ../home.php");
+			return true;
+            
 		}
 	}
     
     
-      public function updateCardIcon(){
+     public function updateCardIcon(){
 
 		$this->conn = $this->connect();
 
 		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
         
-
 		if($salvar) {
 
 			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
-		    $logo = $_FILES['icon']['name'];
+		    $icon = $_FILES['icon']['name'];
             $subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
-            
-        			
+            		
 			$sql = $this->connect->prepare("UPDATE card SET id = :id, icon = :icon WHERE (id = :id)");
 
 			$sql->bindValue(":id",$id);
-			$sql->bindValue(":icon",$logo);
+			$sql->bindValue(":icon",$icon);
 				
-            if ($sql->execute()) {
-
-                $diretorio_icon = "../img/" . $subdominio . "/" ;
+            $sql->execute(); 
                 
-                  
-                if(move_uploaded_file($_FILES['icon']['tmp_name'], $diretorio_icon.$icon)){
-                    
-                header ("location: ../home.php");
-			     return true;
-                }
-                
-                }
-
+            header ("location: ../home.php");
+			return true;
+            
 		}
 	}
+    
+    
+    
 }
 
 ?>

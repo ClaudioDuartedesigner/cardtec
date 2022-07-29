@@ -47,8 +47,12 @@
      
      <label>Subdomínio</label>
      <input type="text" name="subdominio" value="<?php echo "$subdominio" ?>"> 
+     
+      <a href="./ListCard.php">
+         <button type="button" class="bt-darkblue">Cancelar</button>
+     </a>
        
-     <button type="submit" name="salvar" value="salvar">Alterar</button>
+     <button type="submit" name="salvar" value="salvar" class="bt-orange">Alterar</button>
      
      <?php 
    
@@ -67,8 +71,9 @@
     <div class="box-card">
         <h1>Logomarca</h1>
         <img src="<?php echo "../img/$subdominio/".$logo ?>" width="100"><br>
-        
-        <button>Alterar Logo</button>
+        <a href="./UpdateCardLogo.php<?php echo "?id=$id" ?>">
+          <button class="bt-orange">Alterar Logo</button>
+        </a>
     </div>
 </section>
 
@@ -78,8 +83,9 @@
     <div class="box-card">
         <h1>Favicon</h1>
         <img src="<?php echo "../img/$subdominio/".$icon ?>" width="100"><br>
-        
-        <button>Alterar Favicon</button>
+        <a href="./UpdateCardIcon.php<?php echo "?id=$id" ?>">
+            <button class="bt-orange">Alterar Favicon</button>
+        </a>
     </div>
 </section>
 
@@ -90,7 +96,7 @@
         <h1>Capa</h1>
         <img src="<?php echo "../img/$subdominio/".$img_destaque ?>" width="100"><br>
         
-        <button>Alterar Capa</button>
+        <button class="bt-orange">Alterar Capa</button>
     </div>
 </section>
 
@@ -101,7 +107,7 @@
         <h1>Card</h1>
         <img src="<?php echo "../img/$subdominio/".$card ?>" width="100"><br>
         
-        <button>Alterar Card</button>
+        <button class="bt-orange">Alterar Card</button>
     </div>
 </section>
 

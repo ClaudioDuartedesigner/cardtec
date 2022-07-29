@@ -1,0 +1,27 @@
+.bt-green, .bt-orange, .bt-darkblue{
+    width: 120px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+   box-shadow: 5px 5px 5px #aaaaaa;
+    
+}
+
+
+.bt-green{
+    color: white;
+    background-color: green;
+}
+
+
+.bt-orange{
+    color: white;
+    background-color: orangered;
+}
+
+.bt-darkblue{
+    color: white;
+    background-color: darkblue;
+}
