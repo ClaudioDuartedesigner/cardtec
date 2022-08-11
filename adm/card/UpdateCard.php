@@ -1,3 +1,14 @@
+<?php
+session_start();
+ob_start();
+?>
+
+<?php
+if(!isset($_SESSION["user"])){
+    header("location: ./errologin.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -48,6 +59,21 @@
      <label>Subdomínio</label>
      <input type="text" name="subdominio" value="<?php echo "$subdominio" ?>"> 
      
+     <label>Ativo: </label>
+     <select name="ativo">
+         <option value="<?php echo "$ativo" ?>1">  <?php 
+        
+        if ($ativo == "1"){
+            echo "Sim";
+        }else{
+            echo "Não";
+        }
+        ?>
+         </option>
+         <option value="1">Sim</option>
+         <option value="0">Não</option>
+     </select> 
+     <br>
       <a href="./ListCard.php">
          <button type="button" class="bt-darkblue">Cancelar</button>
      </a>
@@ -68,47 +94,51 @@
 </section>
 
 <section class="container">
-    <div class="box-card">
+    
+    <div class="box-card-2">
+          <div class="box-card-inside-top">
         <h1>Logomarca</h1>
-        <img src="<?php echo "../img/$subdominio/".$logo ?>" width="100"><br>
+        
+        <img src="<?php echo "../img/$subdominio/".$logo ?>" ><br>
+        </div>
         <a href="./UpdateCardLogo.php<?php echo "?id=$id" ?>">
-          <button class="bt-orange">Alterar Logo</button>
+          <button class="bt-orange">Alterar</button>
         </a>
     </div>
-</section>
 
-
-
-<section class="container">
-    <div class="box-card">
+    <div class="box-card-2">
+        <div class="box-card-inside-top">
         <h1>Favicon</h1>
-        <img src="<?php echo "../img/$subdominio/".$icon ?>" width="100"><br>
+              
+        <img src="<?php echo "../img/$subdominio/".$icon ?>"><br>
+        </div>
         <a href="./UpdateCardIcon.php<?php echo "?id=$id" ?>">
-            <button class="bt-orange">Alterar Favicon</button>
+            <button class="bt-orange">Alterar</button>
         </a>
     </div>
-</section>
 
-    
-    
-<section class="container">
-    <div class="box-card">
+    <div class="box-card-2">
+           <div class="box-card-inside-top">
         <h1>Capa</h1>
-        <img src="<?php echo "../img/$subdominio/".$img_destaque ?>" width="100"><br>
-        
-        <button class="bt-orange">Alterar Capa</button>
+               <img src="<?php echo "../img/$subdominio/".$img_destaque ?>" class="img-capa" ><br>
+            </div>
+        <a href="./UpdateCardCapa.php<?php echo "?id=$id" ?>">
+            <button class="bt-orange">Alterar</button>
+        </a>
     </div>
-</section>
 
-    
-    
-<section class="container">
-    <div class="box-card">
+    <div class="box-card-2">
+         <div class="box-card-inside-top">
         <h1>Card</h1>
-        <img src="<?php echo "../img/$subdominio/".$card ?>" width="100"><br>
-        
-        <button class="bt-orange">Alterar Card</button>
+         
+        <img src="<?php echo "../img/$subdominio/".$card ?>" class="img-card" ><br>
+        </div>
+        <a href="./UpdateCardCard.php<?php echo "?id=$id" ?>">
+             <button class="bt-orange">Alterar</button>
+        </a>
     </div>
+    
+    
 </section>
 
 
@@ -119,9 +149,7 @@
     <?php require_once '../footer.php' ?>
 </footer>
     
-    <main>
-   
-    </main>
+
 </body>
 </html>
     

@@ -1,3 +1,14 @@
+<?php
+session_start();
+ob_start();
+?>
+
+<?php
+if(!isset($_SESSION["user"])){
+    header("location: ./errologin.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 

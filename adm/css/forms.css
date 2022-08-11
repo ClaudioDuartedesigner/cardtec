@@ -28,8 +28,27 @@ input[type="file"] {
     text-align: center;
 }
 
-
-label{
+select{
     
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px;
 }
+
+textarea{
+    width: 100%;
+    outline: none;
+}
+
+.label-title{
+    background-color: green;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 1em;
+    padding: 5px 0px 5px 0px;
+    color: white;
+}
+
 

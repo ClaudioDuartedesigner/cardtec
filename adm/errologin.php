@@ -6,7 +6,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Painel Administrativo</title>
+    <title>CARD TEC</title>
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" type="text/css" href="css/login.css">
@@ -22,39 +22,9 @@
     </section>
     
     <section class="container">
-
-        <div class="box">
-        
-            <h1>Faça o seu login</h1>
-            
-            <form action="" method="post" class="form-login">
-            
-            <label>E-mail</label>
-            <input type="text" name="email" placeholder="Seu e-mail aqui">            
-            
-            <label>Senha</label>
-            <input type="password" name="senha" placeholder="sua senha aqui">            
-      
-            <button type="submit" class="bt-confirm">Acessar</button>
-            
-            <a href="Sair.php">
-                <button type="button" class="bt-cancel">Cancelar</button>
-            </a>
-                
-            <?php
-
-                if(isset($_POST['email'])){
-
-                    $User_Access = new User();
-                    $User_Access->User_Access();
-            } 
-
-            ?>
-                
-           </form>
-   
-        </div>
-    
+        <center>        
+            <h1>Você está tentando entrar numa área administrativa, se é isso que deseja e não está conseguindo, entre em contato com o administrador da sua página!</h1>
+        </center>
     </section>
     
     <section class="container">

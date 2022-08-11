@@ -1,11 +1,10 @@
 <?php
 
-require_once '../Conn.php';
-
 class Card extends Conn {
 
 	public $conn;
     
+    /********* CLASSE CARDS *******/
     
     public function listCard(){
         
@@ -16,7 +15,6 @@ class Card extends Conn {
         $result->execute();
         return $result->fetchAll();
     }
-
 
     public function listCardId(){
 
@@ -30,7 +28,6 @@ class Card extends Conn {
         return $result->fetchAll();
     }
 
-
 	public function createCard(){
 
 		$this->conn = $this->connect();
@@ -40,6 +37,7 @@ class Card extends Conn {
 		if($salvar) {
 
 			$cliente = filter_input(INPUT_POST, 'cliente', FILTER_SANITIZE_STRING);
+			$ativo = filter_input(INPUT_POST, 'ativo', FILTER_SANITIZE_STRING);
             $empresa = filter_input(INPUT_POST, 'empresa', FILTER_SANITIZE_STRING);
             $subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
             $logo = $_FILES['logo']['name'];
@@ -47,8 +45,8 @@ class Card extends Conn {
             $img_destaque = $_FILES['img_destaque']['name'];
             $icon = $_FILES['icon']['name'];
             $card = $_FILES['card']['name'];
-					
-			$sql = $this->connect->prepare("INSERT INTO card (cliente, empresa, logo, icon, img_destaque, card, subdominio) VALUES (:cliente,:empresa, :logo, :icon, :img_destaque, :card, :subdominio)");
+            		
+			$sql = $this->connect->prepare("INSERT INTO card (cliente, empresa, logo, icon, img_destaque, card, subdominio, ativo) VALUES (:cliente,:empresa, :logo, :icon, :img_destaque, :card, :subdominio, :ativo)");
 
 			$sql->bindValue(":cliente",$cliente);
 			$sql->bindValue(":empresa",$empresa);
@@ -57,6 +55,7 @@ class Card extends Conn {
 			$sql->bindValue(":img_destaque",$img_destaque);
 			$sql->bindValue(":card",$card);
 			$sql->bindValue(":subdominio",$subdominio);
+			$sql->bindValue(":ativo",$ativo);
 		            
             if ($sql->execute()) {
 
@@ -66,7 +65,6 @@ class Card extends Conn {
                 $diretorio_card = "../img/" . $subdominio . "/" ;
                 
                 mkdir($diretorio_logo, 0755);
-               
                   
                 if(move_uploaded_file($_FILES['logo']['tmp_name'], $diretorio_logo.$logo)){
                     
@@ -80,7 +78,6 @@ class Card extends Conn {
                 }
                 
                 }
-
 		}
 	}
 
@@ -96,14 +93,16 @@ class Card extends Conn {
 			$cliente = addslashes($_POST['cliente']);
             $empresa = addslashes($_POST['empresa']);
             $subdominio = addslashes($_POST['subdominio']);
+            $ativo = addslashes($_POST['ativo']);
 
 					
-			$sql = $this->connect->prepare("UPDATE card SET id = :id, cliente = :cliente, empresa = :empresa, subdominio = :subdominio WHERE (id = :id)");
+			$sql = $this->connect->prepare("UPDATE card SET id = :id, cliente = :cliente, empresa = :empresa, subdominio = :subdominio, ativo = :ativo WHERE (id = :id)");
 
 			$sql->bindValue(":id",$id);
 			$sql->bindValue(":cliente",$cliente);
 			$sql->bindValue(":empresa",$empresa);
 			$sql->bindValue(":subdominio",$subdominio);
+			$sql->bindValue(":ativo",$ativo);
 				
             $sql->execute();
 
@@ -119,7 +118,6 @@ class Card extends Conn {
 
 		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
         
-
 		if($salvar) {
 
 			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
@@ -139,8 +137,7 @@ class Card extends Conn {
 		}
 	}
     
-    
-     public function updateCardIcon(){
+    public function updateCardIcon(){
 
 		$this->conn = $this->connect();
 
@@ -165,8 +162,386 @@ class Card extends Conn {
 		}
 	}
     
+    public function updateCardCard(){
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+        
+		if($salvar) {
+
+			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+		    $card = $_FILES['card']['name'];
+            $subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
+            		
+			$sql = $this->connect->prepare("UPDATE card SET id = :id, card = :card WHERE (id = :id)");
+
+			$sql->bindValue(":id",$id);
+			$sql->bindValue(":card",$card);
+				
+            $sql->execute(); 
+                
+            header ("location: ../home.php");
+			return true;
+            
+		}
+	}
     
+    public function updateCardCapa(){
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+        
+		if($salvar) {
+
+			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+		    $img_destaque = $_FILES['img_destaque']['name'];
+            $subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
+            		
+			$sql = $this->connect->prepare("UPDATE card SET id = :id, img_destaque = :img_destaque WHERE (id = :id)");
+
+			$sql->bindValue(":id",$id);
+			$sql->bindValue(":img_destaque",$img_destaque);
+				
+            $sql->execute(); 
+                
+            header ("location: ../home.php");
+			return true;
+            
+		}
+	}
     
+    /************************************************************
+    /***  BLOCK CARD **/
+    /*************************************************************/   
+    
+	public function createBlockCard(){
+        
+        
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+            $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO blocos (id_cliente, titulo, descricao) VALUES (:id_cliente,:titulo, :descricao)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":descricao",$descricao);
+			$sql->execute();
+        }
+			     header ("location: ./CreateBlockCard.php?id=$id_cliente");
+			     return true;
+	}
+    
+    public function updateBlockCard(){
+        
+        
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+            
+            $id = filter_var($_POST['id2'], FILTER_SANITIZE_NUMBER_INT);
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente2', FILTER_SANITIZE_STRING);
+			$titulo = filter_input(INPUT_POST, 'titulo2', FILTER_SANITIZE_STRING);
+            $descricao = filter_input(INPUT_POST, 'descricao2', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("UPDATE blocos SET id = :id, id_cliente = :id_cliente, titulo = :titulo, descricao = :descricao WHERE (id = :id)");
+
+			$sql->bindValue(":id",$id);
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":descricao",$descricao);
+			$sql->execute();
+        }
+			     header ("location: ./CreateBlockCard.php?id=$id_cliente");
+			     return true;
+	}
+    
+    public function listBlockCardId(){
+        
+        $this->conn = $this->connect();
+         
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM blocos WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+
+    /************************************************************
+    /***  LINK CARD **/
+    /*************************************************************/
+    
+	public function createlinkCard(){
+        
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO links (id_cliente, nome, link) VALUES (:id_cliente, :nome, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":nome",$nome);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+        }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	}
+    
+    public function listLinkCardId(){
+        
+        $this->conn = $this->connect();
+         
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM links WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    /************************************************************
+    /***  LINK WHATSAPP **/
+    /*************************************************************/   
+    
+    public function createlinkWhatsapp(){
+        
+		$this->conn = $this->connect();
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+        if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$img = filter_input(INPUT_POST, 'img_whatsapp', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link_whatsapp', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO whatsapp (id_cliente, img, link) VALUES (:id_cliente, :img, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+         }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	    }
+      
+    public function listLinkWhatsappId(){
+        
+        $this->conn = $this->connect();
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM whatsapp WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    /************************************************************
+    /***  LINK INSTAGRAM **/
+    /*************************************************************/   
+ 
+    public function createlinkInstagram(){
+        
+		$this->conn = $this->connect();
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+        if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$img = filter_input(INPUT_POST, 'img_instagram', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link_instagram', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO instagram (id_cliente, img, link) VALUES (:id_cliente,:img, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+         }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	    }
+      
+    public function listLinkInstagramId(){
+        
+        $this->conn = $this->connect();
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM instagram WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    /************************************************************
+    /***  LINK INSTAGRAM **/
+    /*************************************************************/   
+ 
+    public function createlinkFacebook(){
+        
+		$this->conn = $this->connect();
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+        if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$img = filter_input(INPUT_POST, 'img_facebook', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link_facebook', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO facebook (id_cliente, img, link) VALUES (:id_cliente,:img, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+         }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	    }
+      
+    public function listLinkFacebookId(){
+        
+        $this->conn = $this->connect();
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM facebook WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    public function createlinkMaps(){
+        
+		$this->conn = $this->connect();
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+        if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$img = filter_input(INPUT_POST, 'img_maps', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link_maps', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO maps (id_cliente, img, link) VALUES (:id_cliente,:img, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+         }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	    }
+      
+    public function listLinkMapsId(){
+        
+        $this->conn = $this->connect();
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM maps WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    public function createlinkSite(){
+        
+		$this->conn = $this->connect();
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+        if($salvar) {
+
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$img = filter_input(INPUT_POST, 'img_site', FILTER_SANITIZE_STRING);
+            $link = filter_input(INPUT_POST, 'link_site', FILTER_SANITIZE_STRING);
+                      		
+			$sql = $this->connect->prepare("INSERT INTO site (id_cliente, img, link) VALUES (:id_cliente,:img, :link)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":link",$link);
+			$sql->execute();
+         }
+			     header ("location: ./ListLinkCard.php?id=$id_cliente");
+			     return true;
+	    }
+      
+    public function listLinkSiteId(){
+        
+        $this->conn = $this->connect();
+        $get_id = $_GET['id'];
+        
+        $query = "SELECT * FROM site WHERE id_cliente = $get_id";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
+    
+    public function createImgCard(){
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+            $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+			$img = $_FILES['img']['name'];
+            
+            $sql = $this->connect->prepare("INSERT INTO imagem (id_cliente, img, titulo) VALUES (:id_cliente, :img, :titulo)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":img",$img);
+			$sql->bindValue(":titulo",$titulo);
+					            
+            if ($sql->execute()) {
+
+                $diretorio = "../img/" . $subdominio . "/" ;
+                
+                mkdir($diretorio, 0755);
+                  
+                if(move_uploaded_file($_FILES['img']['tmp_name'], $diretorio.$img)){
+                    
+			    header ("location: ./CreateImageCard.php?id=$id_cliente");
+			     return true;
+                
+                }
+		}
+        
+        }}
+    
+    public function listImgCardId(){
+        $id_get = $_GET['id'];
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get'";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
 }
 
 ?>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+ob_start();
+?>
+
+<?php
+if(!isset($_SESSION["user"])){
+    header("location: ./errologin.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -36,12 +47,24 @@
         extract($row);
     ?>
          <div class="box-card">
-            <img src="<?php echo "../img/$empresa/".$empresa."_".$logo ?>"><br>
+            <img src="<?php echo "../img/$subdominio/".$logo ?>" class="img-box-card"><br>
              <br>
                <h1><?php echo "$empresa" ?> </h1>
+             
+             <a href="./UpdateCard.php<?php echo "?id=$id" ?>">
+                <button>Perfil</button>
+            </a>
 
-            <a href="./UpdateCard.php<?php echo "?id=$id" ?>">
-                <button>Alterar</button>
+             <a href="./CreateBlockCard.php<?php echo "?id=$id" ?>">
+                <button>Blocos</button>
+            </a>
+             
+             <a href="./ListLinkCard.php<?php echo "?id=$id" ?>">
+                <button>Link</button>
+            </a>
+             
+            <a href="./CreateImageCard.php<?php echo "?id=$id" ?>">
+                <button>Imagens</button>
             </a>
 
          
@@ -52,6 +75,12 @@
     }
     ?>
         
+</section>
+    
+      
+<section class="container-block">
+<a href="../home.php">
+<button class="bt-darkblue">Home</button></a>
 </section>
         
 </main>

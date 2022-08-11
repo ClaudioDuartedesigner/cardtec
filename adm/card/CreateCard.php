@@ -1,3 +1,14 @@
+<?php
+session_start();
+ob_start();
+?>
+
+<?php
+if(!isset($_SESSION["user"])){
+    header("location: ./errologin.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -48,6 +59,12 @@
      
      <label>card</label>
      <input type="file" name="card"> 
+     
+     <label>Ativo</label>
+     <select name="ativo">
+         <option value="1">Sim</option>
+         <option value="0">Não</option>
+     </select> 
      
      <button type="submit" name="salvar" value="salvar">Salvar</button>
      <?php 

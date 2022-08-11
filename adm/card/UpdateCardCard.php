@@ -55,11 +55,11 @@ if(!isset($_SESSION["user"])){
      
      <input type="hidden" name="subdominio" value="<?php echo "$subdominio" ?>"> 
      
-     <img src="<?php echo "../img/$subdominio/".$icon ?>" width="300"><br>
+     <img src="<?php echo "../img/$subdominio/".$card ?>" width="300"><br>
      
-     <input type="file" name="icon"> 
+     <input type="file" name="card"> 
      
-     <?php $arqvuivoAntigo = $icon; ?>
+     <?php $arqvuivoAntigo = $card; ?>
      
      <a href="./UpdateCard.php<?php echo "?id=$id" ?>">
          <button type="button" class="bt-darkblue">Cancelar</button>
@@ -71,13 +71,13 @@ if(!isset($_SESSION["user"])){
     if(isset($_POST['id'])){
         
         $formatfiles = array("png","jpg","jpeg","gif");
-        $extensaoIcon = pathinfo($_FILES['icon']['name'], PATHINFO_EXTENSION);
+        $extensaoCard = pathinfo($_FILES['card']['name'], PATHINFO_EXTENSION);
         
-        if(in_array($extensaoIcon, $formatfiles)){
+        if(in_array($extensaoCard, $formatfiles)){
             
             $pasta = "../img/$subdominio/";
-            $tmp = $_FILES['icon']['tmp_name']; 
-            $novoNome = $_FILES['icon']['name'];
+            $tmp = $_FILES['card']['tmp_name']; 
+            $novoNome = $_FILES['card']['name'];
            
             
             if(move_uploaded_file($tmp, $pasta.$novoNome)){
@@ -87,7 +87,7 @@ if(!isset($_SESSION["user"])){
                 unlink ($pasta.$del);
                 
                 $Update = new Card();
-                $Update->updateCardIcon();
+                $Update->updateCardCard();
                 
         }else{
             
