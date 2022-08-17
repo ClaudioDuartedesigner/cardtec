@@ -4,10 +4,18 @@
     font-family: sans-serif;
 }
 
+a{
+    text-decoration: none;
+}
 
 
 boby{
     background-color: black;
+}
+
+main{
+    min-height: 500px;
+    background-color: #E6E7E8;
 }
 
 .header-main, .footer-main{
@@ -28,7 +36,8 @@ boby{
 }
 .main-main{
     min-height: 500px;
-    background-color: white;
+    background-color: #E6E7E8;
+    
     
 }
 
@@ -70,8 +79,13 @@ boby{
 
 .img-card{
     width: 100%;
-    height: 150px;
+  
     border-radius: 10px;
+}
+
+.img-catalogo{
+    width: 100%;
+    height: 150px;
 }
 
 .img-logo{
@@ -84,7 +98,8 @@ boby{
 }
 
 h1{
-     margin: 10px 5px 10px 5px; 
+    margin: 10px 5px 10px 5px; 
+    text-align: center;
 }
 
 .h1-title-card{
@@ -97,3 +112,39 @@ h1{
    margin: 10px 5px 10px 5px;
 }
 
+p{
+    margin: 5px;
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 1.5em;
+}
+.bt-green{
+   
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    box-shadow: 5px 5px 5px #aaaaaa;
+    text-align: center;
+        
+}
+
+.bt-green{
+    background-color: green;
+    color: white;
+}
+
+.bt-green:hover{
+    background-color: black;
+    color: white;
+}
+
+.box-catalago{
+    background-color: #E1F3FC;
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid dodgerblue;
+    border-radius: 10px;
+}

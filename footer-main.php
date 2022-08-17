@@ -15,8 +15,26 @@
     </section>
     
     <section class="container-center-block">
-        <h4>Desenvolvido por: Claudio Duarte Designer</h4>
+        <a href="https://www.card.tec.br/">
+        <button class="bt-green">Faça já o seu!</button></a>
     </section>
+ 
+    
+    <section class="container-center-block">
+        <?php
+            require_once './adm/Conn2.php';
+            $contagem = $conn2->query("SELECT * FROM card ");
+            $total = $contagem->rowCount();
+            echo "<h1>".$total."</h1>"." Cartões Digitais até agora!";
+        ?>
+    </section>
+    
+       <br>
+    <section class="container-center-block">
+          <a href="https://www.duartgrafica.com.br/">
+              <h4>Desenvolvido por: Claudio Duarte Designer</h4></a>
+    </section>
+    
 </body>
     
 </html>

@@ -78,7 +78,11 @@ if(!isset($_SESSION["user"])){
     ?>
         
 </section>
-        
+    
+<section class="container">
+    <a href="../home.php"><button class="bt-darkblue">Home</button></a>
+</section>
+
 </main>
     
 <footer>

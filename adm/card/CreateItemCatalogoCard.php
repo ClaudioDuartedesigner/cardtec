@@ -18,6 +18,8 @@ if(!isset($_SESSION["user"])){
     require_once './ClassCard.php';
     
     $id_cliente = $_GET['id'];
+    $val = 00.00;
+
     ?>
     
 <head>
@@ -48,24 +50,38 @@ if(!isset($_SESSION["user"])){
     }
     ?>
     
-     
-     <input type="hidden" name="id_cliente" value="<?php echo $id_cliente ?>">  
-     <input type="hidden" name="subdominio" value="<?php echo $subdominio ?>">  
+    <?php   
+    $list_whatsapp = new Card();
+    $result_whatsapp = $list_whatsapp->listLinkWhatsappId();
+
+    foreach ($result_whatsapp as $row_whatsapp) {
+        extract($row_whatsapp);
+    }
+    ?>
     
-      <label>Titulo</label>
+     <input type="text" name="id_cliente" value="<?php echo $id_cliente ?>">  
+     <input type="text" name="subdominio" value="<?php echo $subdominio ?>">  
+    
+     <label>Titulo</label>
      <input type="text" name="titulo">       
+     
+     <label>Descrição</label>
+     <input type="text" name="descricao"> 
+     
+     <label>Whatsapp</label>
+     <input type="text" name="whatsapp"  value="<?php echo $link ?>">       
+     
+     <label>Mensagem Whatsapp</label>
+     <input type="text" name="mensagem">       
+     
+     <label>Código produto</label>
+     <input type="text" name="codigo"> 
+     
+     <label>Valor</label>
+     <input type="text" name="valor" value="<?php echo number_format($val,2,",","."); ?>">       
      
      <label>Imagem</label>
      <input type="file" name="img"> 
-     
-     <label>Orientação</label>
-     <select name="orientacao">
-        <option value="0">Paisagem</option>
-        <option value="1">Retrato</option>
-     </select>
-          
-     <label>Ordem</label>
-     <input type="text" name="ordem"> 
      
      <button type="submit" name="salvar" value="salvar" class="bt-green">Salvar</button>
    
@@ -83,7 +99,7 @@ if(!isset($_SESSION["user"])){
         
         if(in_array($extensao, $formatfiles)){
             $create = new Card();
-            $create->createImgCard();
+            $create->createItemcatalogoCard();
     
         }else{
             
@@ -112,7 +128,7 @@ if(!isset($_SESSION["user"])){
     
     
     $list = new Card();
-    $result = $list->listImgCardId();
+    $result = $list->listItemCatalogoCardId();
     
 
     foreach ($result as $row) {
@@ -121,7 +137,15 @@ if(!isset($_SESSION["user"])){
     
     <div class="box-card">
         <h4><?php echo $titulo ?></h4>
+        <p><?php echo $descricao ?></p>
+        <p><?php echo $whatsapp ?></p>
+        <p><?php echo $mensagem ?></p>
+        <p><?php echo $codigo ?></p>
+        <p><?php echo "R$ " . number_format($valor,2)  ?></p>
+       
         <img src="<?php echo "../img/".$subdominio."/".$img?>"  class="img-box-card">
+        
+       
         
         <a href="DeleleImagemCard.php<?php echo "?id=$id&id_card=$id_card" ?>">
         <button type="button" class="bt-black">Excluir</button></a>

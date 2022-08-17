@@ -1,3 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>    
+    <title>Card.Tec</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Claudio Duarte Designer">
+    <meta http-equiv="refresh" content="1; URL='https://www.card.tec.br/card-details.php?id=54'"/>    
+</head>
+
+</html>
+
+
+
+
+
+
+-------------------
+
+
+
+
 <head>    
     <meta http-equiv="refresh" content="1; URL='<?php echo "https://card.tec.br/card-details.php?id=45" ?>"/>    
 </head>

@@ -66,6 +66,11 @@ if(!isset($_SESSION["user"])){
             <a href="./CreateImageCard.php<?php echo "?id=$id" ?>">
                 <button>Imagens</button>
             </a>
+            
+             
+              <a href="./CreateItemCatalogoCard.php<?php echo "?id=$id" ?>">
+                <button>Catálogo</button>
+            </a>
 
          
         </div>

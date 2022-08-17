@@ -66,7 +66,7 @@ if(!isset($_SESSION["user"])){
          <option value="0">Não</option>
      </select> 
      
-     <button type="submit" name="salvar" value="salvar">Salvar</button>
+     <button type="submit" name="salvar" value="salvar" class="bt-green">Salvar</button>
      <?php 
    
     if(isset($_POST['cliente'])){

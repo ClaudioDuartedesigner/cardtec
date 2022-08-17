@@ -108,8 +108,11 @@ if(isset($_POST['id_cliente'])){
 </form>
 
 </section>
- <a href="../home.php">
-<button>Home</button></a>
+
+<section class="container">
+ <a href="../home.php"><button class="bt-darkblue">Home</button></a>
+</section>
+    
 </main>
     
 <footer>

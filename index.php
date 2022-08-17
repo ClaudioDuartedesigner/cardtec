@@ -14,17 +14,94 @@
     <meta property="og:image:width" content="200"> 
     <meta property="og:image:height" content="200"> 
     <meta name='description' content='Seu cartão de vistas digital!'>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4897064031831450"
+     crossorigin="anonymous"></script>
+
 	
 </head>
- <body>   
+ <body> 
+     <main>
 <header class="header-main">
     <?php require_once './header-main.php' ?>
 </header>
 
+
+    <section class="container">
+          <a href="https://youtu.be/ll-GgHIlJR0">
+              <img src="adm/img/youtube.png" class="img-social"></a>
+    </section>
+    
+    <section class="container">
+        <h4>Assitsa o Vídeo Explciativo</h4>
+    </section>
+    
+    <section class="container">
+        <h1>O que é um Cartão de Visita Digital</h1>
+        <p>É um cartão de visitas inovador, hoje em dia praticamente todo mundo tem um celular smartphone, todos navegam e redes sociais e utilizam para se transportar, comprar seu lanche, fazer compras e muito mais. Sua empresa não pode ficar de fora disso, o cartão de visita digital veio para revolucionar a vida do empreendedor.</p>
+    </section>
+  
+    <section class="container">
+        <img src="adm/img/card-qrcode.png" width="200px;">
+    </section>
+    
+    <section class="container">
+        <h1>Como uso o cartão de visita digital?</h1>
+        <p>É bem simples, você oferece o seu cartão ao cliente, ele aponta a câmera do celular para o QR Code que está no cartão e aparecerá na tela do celular o seu cartão de visitas com todas as informações importante da sua empresa. São elas: Sua logomarca, serviços que você faz, fotos dos serviços, seus contatos de todas as redes sociais que você usa, horários e dias de funcionamento, o mapa da localização do seu endereço e uma breve descrição da sua empresa.</p>
+    </section>
+     
+    
+    <section class="container">
+        <h1>Quais são as vantagens?</h1>
+        <p>Seu cartão nunca será inutilizado, o seu cliente terá em mãos sempre um conteúdo atualizado, é dinâmico ou seja as informações podem ser trocadas a qualquer sempre que necessário, você poderá lançar promoções com períodos determinados, ele poderá chamar você no whatsapp e acessar suas redes sociais sempre que quiser, é moderno e seu cliente não vai jogar seu cartão fora.</p>
+    </section>
+     
+    
+    <section class="container">
+        <h1>Como uso o cartão de visita digital?</h1>
+        <p>É bem simples, você oferece o seu cartão ao cliente, ele aponta a câmera do celular para o QR Code que está no cartão e aparecerá na tela do celular o seu cartão de visitas com todas as informações importante da sua empresa. São elas: Sua logomarca, serviços que você faz, fotos dos serviços, seus contatos de todas as redes sociais que você usa, horários e dias de funcionamento, o mapa da localização do seu endereço e uma breve descrição da sua empresa.</p>
+    </section>
+     
+    
+    <section class="container">
+        <h1>Sabe o que é mais legal?</h1>
+        <p>Você pode usar a imagem do QRCODE em qualquer lugar, isso mesmo, no cartão, panfleto, talão, recibo, etiqueta, lona, banner ou seja, qualquer lugar que você desejar imprimir o seu QRCODE, estará lá sempre sua propaganda, sempre atualizada, independente de quando você fez o seu cartão digital.</p>
+    </section>
+     
+    
+    <section class="container">
+        <h1>Quem pode ter?</h1>
+        <p>Qualquer empreendedor, pessoa física, instituições, igrejas e outros que quiserem. Você pode colocar no seu cartão desde produtos, serviços ou até mesmo eventos, sempre usando o mesmo cartão.</p>
+    </section>
+     
+    
+    <section class="container">
+        <h1>Qual o custo desse cartão?</h1>
+        <p>Ele tem um custo que varia de acordo com o material que será impresso, por padrão ele é em pvc (parecido com cartão de crédito), mas temos outras opções. para você saber o custo entre em contato conosco e faremos um bom négocio para vocês.</p>
+    </section>
+    
+    
+     <section class="container">
+        <h1>Vamos fechar negócio?</h1>
+    </section>
+    
+     <section class="container">
+         <p>Você pode entrar em contato conosco via whatsapp para tirar todas as suas dúvidas, estamos disponíveis de segunda à sexta de 9 às 18h. É só me chamar!</p>
+    </section>
+    
+    <section class="container">
+        <a href="https://api.whatsapp.com/send?phone=5521987044005&text=Oi,%20quero%20saber%20sobre%20o%20Cart%C3%A3o%20Digital">
+        <img src="adm/img/whatsapp.png" class="img-social"></a>
+        
+        <a href="https://youtu.be/ll-GgHIlJR0">
+         <img src="adm/img/youtube.png" class="img-social"></a>
+    </section>
+ 
+
+     
 <section>
     <?php require_once './cards.php'; ?>
 </section>
-    
+    </main>
 <footer class="footer-main">
     <?php require_once './footer-main.php' ?>
 </footer>

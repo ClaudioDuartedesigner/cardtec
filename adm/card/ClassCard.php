@@ -506,14 +506,18 @@ class Card extends Conn {
 
 			$subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
 			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+			$orientacao = filter_input(INPUT_POST, 'orientacao', FILTER_SANITIZE_STRING);
+			$ordem = filter_input(INPUT_POST, 'ordem', FILTER_SANITIZE_STRING);
             $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
 			$img = $_FILES['img']['name'];
             
-            $sql = $this->connect->prepare("INSERT INTO imagem (id_cliente, img, titulo) VALUES (:id_cliente, :img, :titulo)");
+            $sql = $this->connect->prepare("INSERT INTO imagem (id_cliente, img, titulo, ordem, orientacao) VALUES (:id_cliente, :img, :titulo, :ordem, :orientacao)");
 
 			$sql->bindValue(":id_cliente",$id_cliente);
 			$sql->bindValue(":img",$img);
 			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":ordem",$ordem);
+			$sql->bindValue(":orientacao",$orientacao);
 					            
             if ($sql->execute()) {
 
@@ -542,6 +546,78 @@ class Card extends Conn {
         return $result->fetchAll();
     
         }
+    
+    public function listImgCardIdOrdem(){
+        $id_get = $_GET['id'];
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get' ORDER BY ordem ASC";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
+    /**CLASSE CATÁLOGO*******************************
+    ************************************************/
+    
+    public function listItemCatalogoCardId(){
+        $id_get = $_GET['id'];
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM item_catalogo WHERE id_cliente ='$id_get'";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
+     public function createItemCatalogoCard(){
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$subdominio = filter_input(INPUT_POST, 'subdominio', FILTER_SANITIZE_STRING);
+			$id_cliente = filter_input(INPUT_POST, 'id_cliente', FILTER_SANITIZE_STRING);
+            $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+            $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
+            $whatsapp = filter_input(INPUT_POST, 'whatsapp', FILTER_SANITIZE_STRING);
+            $mensagem = filter_input(INPUT_POST, 'mensagem', FILTER_SANITIZE_STRING);
+            $codigo = filter_input(INPUT_POST, 'codigo', FILTER_SANITIZE_STRING);
+            $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_STRING);
+			$img = $_FILES['img']['name'];
+            
+            $sql = $this->connect->prepare("INSERT INTO item_catalogo (id_cliente, titulo, descricao, whatsapp, mensagem, codigo, valor, img) VALUES (:id_cliente, :titulo, :descricao, :whatsapp, :mensagem, :codigo, :valor, :img)");
+
+			$sql->bindValue(":id_cliente",$id_cliente);
+			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":descricao",$descricao);
+			$sql->bindValue(":whatsapp",$whatsapp);
+			$sql->bindValue(":mensagem",$mensagem);
+			$sql->bindValue(":codigo",$codigo);
+			$sql->bindValue(":valor",$valor);
+			$sql->bindValue(":img",$img);
+					            
+            if ($sql->execute()) {
+
+                $diretorio = "../img/" . $subdominio . "/" ;
+                
+                mkdir($diretorio, 0755);
+                  
+                if(move_uploaded_file($_FILES['img']['tmp_name'], $diretorio.$img)){
+                    
+			    header ("location: ./CreateItemCatalogoCard.php?id=$id_cliente");
+			     return true;
+                
+                }
+		}
+        
+        }}
 }
 
 ?>

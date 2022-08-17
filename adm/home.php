@@ -30,11 +30,11 @@ if(!isset($_SESSION["user"])){
         
     <section class="container">
         <div class="box">
-            <a href="card/CreateCard.php">
+            <a href="./Card/CreateCard.php">
                 <button>Cadastrar Card</button>
             </a>
           
-             <a href="card/ListCard.php">
+             <a href="./Card/ListCard.php">
                 <button>Listar Card</button>
             </a>
         </div>
