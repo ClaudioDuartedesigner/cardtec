@@ -11,6 +11,7 @@
 }
 
 
+
 .bt-green{
     color: white;
     background-color: green;
@@ -34,4 +35,16 @@
 }
 .box-card-2 button{
     
+}
+
+.bt-orange-larg{
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    border:none;
+    outline: none;
+    text-align: center;
+    background-color: orangered;
+    color: white;
 }

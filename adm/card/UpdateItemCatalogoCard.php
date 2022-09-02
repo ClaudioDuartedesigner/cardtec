@@ -16,10 +16,20 @@ if(!isset($_SESSION["user"])){
     
     require_once '../Conn.php';
     require_once './ClassCard.php';
-    
-    $id_cliente = $_GET['id'];
+  
+    $id_card = $_GET['id_card'];
     $val = 00.00;
 
+    $listcard = new Card();
+    $resultcard = $listcard->listCardId2();
+
+    foreach ($resultcard as $rowcard) {
+        extract($rowcard);
+          
+     }
+    
+   
+    
     ?>
     
 <head>
@@ -37,53 +47,49 @@ if(!isset($_SESSION["user"])){
 </header>
     
 <main>
-        
+
+
+    
 <section class="container">
  <form method="POST" enctype="multipart/form-data" class="dv-form">
      
     <?php   
     $list = new Card();
-    $result = $list->listCardId();
+    $result = $list->listItemCatalogoCardId2();
 
     foreach ($result as $row) {
         extract($row);
     }
+        
     ?>
-    
-    <?php   
-    $list_whatsapp = new Card();
-    $result_whatsapp = $list_whatsapp->listLinkWhatsappId();
+     <?php  echo $empresa; ?>
+     
+     <img src="<?php echo "../img/".$subdominio."/".$img?>"  class="img-box-card">
 
-    foreach ($result_whatsapp as $row_whatsapp) {
-        extract($row_whatsapp);
-    }
-    ?>
-    
-     <input type="text" name="id_cliente" value="<?php echo $id_cliente ?>">  
-     <input type="text" name="subdominio" value="<?php echo $subdominio ?>">  
-    
+     <a href="./UpdateImageItemCatalogo.php<?php echo "?id=$id&id_card=$id_card&subdominio=$subdominio" ?>">
+     <button type="button" class="bt-orange-larg">Alterar Imagem</button></a>
+     
+     <input type="text" name="id" value="<?php echo $id ?>">  
+      
      <label>Titulo</label>
-     <input type="text" name="titulo">       
+     <input type="text" name="titulo" value="<?php echo $titulo ?>">      
      
      <label>Descrição</label>
-     <input type="text" name="descricao"> 
+     <input type="text" name="descricao"  value="<?php echo $descricao ?> ">      
      
      <label>Whatsapp</label>
-     <input type="text" name="whatsapp"  value="<?php echo $link ?>">       
+     <input type="text" name="whatsapp"  value="<?php echo $whatsapp ?>">       
      
      <label>Mensagem Whatsapp</label>
-     <input type="text" name="mensagem">       
+     <input type="text" name="mensagem" value="<?php echo $mensagem ?>">       
      
      <label>Código produto</label>
-     <input type="text" name="codigo"> 
+     <input type="text" name="codigo" value="<?php echo $codigo ?>"> 
      
      <label>Valor</label>
-     <input type="text" name="valor" value="<?php echo number_format($val,2,",","."); ?>">       
-     
-     <label>Imagem</label>
-     <input type="file" name="img"> 
-     
-     <button type="submit" name="salvar" value="salvar" class="bt-green">Salvar</button>
+     <input type="text" name="valor" value="<?php echo $valor ?>">       
+       
+     <button type="submit" name="salvar" value="salvar" class="bt-orange">Alterar</button>
    
      <a href="ViewCard.php<?php echo "?id=$id_cliente" ?>">
      <button type="button" class="bt-darkblue">Voltar</button></a>
@@ -94,21 +100,10 @@ if(!isset($_SESSION["user"])){
    
     if(isset($_POST['titulo'])){
         
-        $formatfiles = array("png","jpg","jpeg","gif");
-        $extensao = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-        
-        if(in_array($extensao, $formatfiles)){
-            $create = new Card();
-            $create->createItemcatalogoCard();
+           $create = new Card();
+            $create->UpdateItemcatalogoCard();
     
-        }else{
-            
-         ?>
-            <br>
-            <?php echo "Formato de imagem não aceita, somente jpg, png, jpeg e gif";?>
-        <?php
-        }
-    }
+          }
             
             
     ?>
@@ -145,8 +140,7 @@ if(!isset($_SESSION["user"])){
        
         <img src="<?php echo "../img/".$subdominio."/".$img?>"  class="img-box-card">
         
-         <a href="UpdateItemCatalogoCard.php<?php echo "?id=$id&id_card=$id_card" ?>">
-        <button type="button" class="bt-orange">Alterar</button></a>
+       
         
         <a href="DeleteItemCatalogoCard.php<?php echo "?id=$id&id_card=$id_card" ?>">
         <button type="button" class="bt-black">Excluir</button></a>

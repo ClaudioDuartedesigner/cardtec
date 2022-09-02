@@ -26,6 +26,9 @@
     
 	
 </head>
+
+
+  
     
 <?php
     }
@@ -142,6 +145,11 @@
     }?>
     
 
+    <a href="javascript:void(0)" onclick="share()">
+        <img src="https://card.tec.br/adm/img/compartilhar.png" alt="Compartilhar" class="img-social">
+    </a>
+
+
 <section class="container-card-details">
   
         <?php
@@ -160,7 +168,21 @@
     }?>
    
 </section>
+  <script type="text/javascript">
+        
+    function share(){
+    if (navigator.share !== undefined) {
+        navigator.share({
+            title: 'https://<?php echo $subdominio ?>.card.tec.br',
+            text: 'Acesse o Meu Cartão Virtual',
+            url: 'https://<?php echo $subdominio ?>.card.tec.br',
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    }
+}
 
+</script>
 <section class="container">
     
     <?php 
@@ -193,13 +215,32 @@
      
     
     $list = new Card();
-    $result = $list->listImgCardId();
+    $result = $list->listImgCardIdPaisagem();
 
     foreach ($result as $row) {
         extract($row);?>
     <div class="box-card">
         <h4><?php echo $titulo ?></h4>
-        <img src="<?php echo "./adm/img/".$subdominio."/".$img?>"  class="img-card">
+        <img src="<?php echo "./adm/img/".$subdominio."/".$img?>"  class="img-card-landscape">
+    </div>
+    <?php
+    }?>
+   
+</section>
+    
+<section class="container">
+  
+    <?php
+     
+    
+    $list = new Card();
+    $result = $list->listImgCardIdRetrato();
+
+    foreach ($result as $row) {
+        extract($row);?>
+    <div class="box-card-portrait">
+        <h4><?php echo $titulo ?></h4>
+        <img src="<?php echo "./adm/img/".$subdominio."/".$img?>"  class="img-card-portrait">
     </div>
     <?php
     }?>
@@ -207,9 +248,19 @@
 </section>
     
 </section>  
-    
 
-    
+
+<section class="container">
+    <h4>Compartilhe este Cartão Virtual</h4><br>
+</section>
+
+<section class="container">
+    <a href="javascript:void(0)" onclick="share()">
+        <img src="https://card.tec.br/adm/img/compartilhar.png" alt="Compartilhar" class="img-social">
+    </a>
+</section>
+
+
 <footer class="footer-main">
     <?php require_once './footer-main.php' ?>
 </footer>

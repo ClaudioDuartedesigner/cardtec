@@ -108,6 +108,11 @@ if(isset($_POST['id_cliente'])){
 </form>
 
 </section>
+    
+    <section class="container">
+     <a href="ViewCard.php<?php echo "?id=$id_card" ?>">
+     <button type="button" class="bt-darkblue">Voltar</button></a>
+</section>
 
 <section class="container">
  <a href="../home.php"><button class="bt-darkblue">Home</button></a>

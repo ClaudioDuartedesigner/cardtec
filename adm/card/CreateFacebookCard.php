@@ -59,6 +59,8 @@ if(!isset($_SESSION["user"])){
     <a href="../home.php">
     <button class="bt-darkblue">Home</button></a>
 </section>    
+    
+    
 
 </main> 
 

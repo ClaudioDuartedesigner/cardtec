@@ -27,6 +27,18 @@ class Card extends Conn {
         $result->execute();
         return $result->fetchAll();
     }
+    
+    public function listCardId2(){
+
+    	$id_card = $_GET['id_card'];
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM card WHERE id='$id_card'";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    }
 
 	public function createCard(){
 
@@ -535,12 +547,58 @@ class Card extends Conn {
         
         }}
     
+     public function updateImgCard(){
+
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+			$id_cliente = filter_var($_POST['id_cliente'], FILTER_SANITIZE_NUMBER_INT);
+			$subdominio = filter_var($_POST['subdominio'], FILTER_SANITIZE_NUMBER_INT);
+			$titulo = addslashes($_POST['titulo']);
+			$orientacao = addslashes($_POST['orientacao']);
+			$ordem = addslashes($_POST['ordem']);
+            					
+			$sql = $this->connect->prepare("UPDATE imagem SET id = :id, titulo = :titulo, orientacao = :orientacao, ordem = :ordem  WHERE (id = :id)");
+
+			$sql->bindValue(":id",$id);
+			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":orientacao",$orientacao);
+			$sql->bindValue(":ordem",$ordem);
+				
+            $sql->execute();
+
+			 header ("location: ./CreateImageCard.php?id=$id_cliente");
+			return true;
+
+		}
+	}
+    
     public function listImgCardId(){
+       
         $id_get = $_GET['id'];
+      
         
         $this->conn = $this->connect();
         
-        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get'";
+        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get' ORDER BY ordem ASC";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
+      public function listImgCardId2(){
+       
+        $id_get = $_GET['id'];
+      
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM imagem WHERE id ='$id_get'";
         $result = $this->connect->prepare($query);
         $result->execute();
         return $result->fetchAll();
@@ -559,10 +617,53 @@ class Card extends Conn {
     
         }
     
+    
+     public function listImgCardIdPaisagem(){
+       
+        $id_get = $_GET['id'];
+      
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get' AND orientacao ='0' ORDER BY ordem ASC";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
+    
+      public function listImgCardIdRetrato(){
+       
+        $id_get = $_GET['id'];
+      
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM imagem WHERE id_cliente ='$id_get' AND orientacao ='1' ORDER BY ordem ASC";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
     /**CLASSE CATÁLOGO*******************************
     ************************************************/
     
+     public function listItemCatalogoCardId2(){
+        $id_get = $_GET['id'];
+        
+        $this->conn = $this->connect();
+        
+        $query = "SELECT * FROM item_catalogo WHERE id ='$id_get'";
+        $result = $this->connect->prepare($query);
+        $result->execute();
+        return $result->fetchAll();
+    
+        }
+    
     public function listItemCatalogoCardId(){
+    
         $id_get = $_GET['id'];
         
         $this->conn = $this->connect();
@@ -573,6 +674,7 @@ class Card extends Conn {
         return $result->fetchAll();
     
         }
+    
     
      public function createItemCatalogoCard(){
 
@@ -618,7 +720,79 @@ class Card extends Conn {
 		}
         
         }}
-}
+
+
+ public function UpdateItemCatalogoCard(){
+
+     
+        $id_item_catalogo = $_GET['id'];
+        $id_card = $_GET['id_card'];
+        
+     
+		$this->conn = $this->connect();
+
+		$salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+
+		if($salvar) {
+
+			$id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+		/*	$id_cliente = addslashes($_POST['id_cliente']);*/
+            $titulo = addslashes($_POST['titulo']);
+            $descricao = addslashes($_POST['descricao']);
+            $whatsapp = addslashes($_POST['whatsapp']);
+            $mensagem = addslashes($_POST['mensagem']);
+            $codigo = addslashes($_POST['codigo']);
+            $valor = addslashes($_POST['valor']);
+			
+           
+        
+            $sql = $this->connect->prepare("UPDATE item_catalogo SET id = :id, titulo = :titulo, descricao = :descricao, whatsapp = whatsapp, mensagem = :mensagem, codigo = :codigo, valor = :valor WHERE (id = :id)");
+
+			$sql->bindValue(":id",$id);
+			$sql->bindValue(":titulo",$titulo);
+			$sql->bindValue(":descricao",$descricao);
+			$sql->bindValue(":whatsapp",$whatsapp);
+			$sql->bindValue(":mensagem",$mensagem);
+			$sql->bindValue(":codigo",$codigo);
+			$sql->bindValue(":valor",$valor);
+			
+            $sql->execute();
+		
+			header ("location: ./UpdateItemCatalogoCard.php?id=$id_item_catalogo&id_card=$id_card");
+			return true;
+                
+                }
+		}
+
+        public function UpdateImagemItemCatalogo(){
+
+            $this->conn = $this->connect();
+
+            $id=$_GET['id'];
+            $id_card=$_GET['id_card'];
+    
+            $salvar = filter_input(INPUT_POST, 'salvar', FILTER_SANITIZE_STRING);
+            
+            if($salvar) {
+    
+                $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+                $img = $_FILES['img']['name'];
+                                       
+                $sql = $this->connect->prepare("UPDATE item_catalogo SET id = :id, img = :img WHERE (id = :id)");
+    
+                $sql->bindValue(":id",$id);
+                $sql->bindValue(":img",$img);
+                    
+                $sql->execute(); 
+                    
+                header ("location: ./UpdateItemCatalogoCard.php?id=$id&id_card=$id_card");
+                return true;
+                
+            }
+        }
+        
+    }
+
 
 ?>
 

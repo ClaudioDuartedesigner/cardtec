@@ -33,6 +33,7 @@ select{
     padding: 5px;
     border-radius: 10px;
     margin: 10px;
+    
 }
 
 textarea{
@@ -51,4 +52,11 @@ textarea{
     color: white;
 }
 
+.input-number{
+    width: 50px;
+   
+}
 
+.form-diplay-flex{
+    display: flex;
+}

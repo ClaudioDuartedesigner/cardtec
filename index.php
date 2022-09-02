@@ -72,17 +72,35 @@
         <h1>Quem pode ter?</h1>
         <p>Qualquer empreendedor, pessoa física, instituições, igrejas e outros que quiserem. Você pode colocar no seu cartão desde produtos, serviços ou até mesmo eventos, sempre usando o mesmo cartão.</p>
     </section>
-     
     
     <section class="container">
-        <h1>Qual o custo desse cartão?</h1>
-        <p>Ele tem um custo que varia de acordo com o material que será impresso, por padrão ele é em pvc (parecido com cartão de crédito), mas temos outras opções. para você saber o custo entre em contato conosco e faremos um bom négocio para vocês.</p>
+        <h1>Qual o valor do cartão digital?</h1>
+    </section>
+
+    <section class="container">
+         <p>R$ 60,00 (anual), o cartão vale por um ano, depois precisa renovado, você só paga esse valor uma vez por ano e mais nada. Não tem mensalidades nem um outro custo.</p>
+    </section>
+         
+    <section class="container">
+         <p>Caso precise de fazer algum tipo de alteração, por exemplo: trocou o whatsapp, redes sociais, texto ou foto, você vai pagar apenas R$ 5,00 pela alteração que fizer (o valor não é por alteração e sim por cada vez que alterar, isso no plano básico padrão)</p>
+    </section>
+         
+    <section class="container">
+         <p>Caso queira inserir uma promoção, o valor é 5,00 por promoção, se for somente texto nos inserimos, se for imagem, você precisa nos mandar a arte pronta da promoção ou fazer uma arte conosco (nesse caso o valor é cobrado por fora). </p>
     </section>
     
+         
+    <section class="container">
+        <h1>Qual o valor do cartão impresso?</h1>
+    </section> 
     
      <section class="container">
-        <h1>Vamos fechar negócio?</h1>
+         <p>Você não precisa necessariamente fazer o cartão impresso, o QRCode pode ser usado em qualquer impresso e em qualquer gráfica, você terá o seu QRCode e será livre para usá-lo da forma que quiser e onde quiser, caso queira precisa consultar os valores conosco, é o valor de cartão de visitas comum</p>
     </section>
+     
+     <section class="container">
+        <h1>Vamos fechar negócio?</h1>
+    </section> 
     
      <section class="container">
          <p>Você pode entrar em contato conosco via whatsapp para tirar todas as suas dúvidas, estamos disponíveis de segunda à sexta de 9 às 18h. É só me chamar!</p>

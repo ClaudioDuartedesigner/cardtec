@@ -13,11 +13,12 @@ if(!isset($_SESSION["user"])){
 <html lang="pt-br">
 
 <?php
-    
     require_once '../Conn.php';
     require_once './ClassCard.php';
     
     $id_cliente = $_GET['id'];
+    $sub = $_GET['sub'];
+    $id_card = $_GET['id_card'];
     ?>
     
 <head>
@@ -27,7 +28,6 @@ if(!isset($_SESSION["user"])){
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="shortchu icon" href="./img/logo.png">
 </head>
-
     
 <body>
     <header>
@@ -38,74 +38,71 @@ if(!isset($_SESSION["user"])){
         
 <section class="container">
  <form method="POST" enctype="multipart/form-data" class="dv-form">
-     
-    <?php   
+       <?php
+            require_once '../Conn2.php';
+            $listcard = $conn2->query("SELECT * FROM card WHERE id = $id_card");
+            foreach ($listcard as $rowcard) {
+            ?>
+             <img src="<?php echo "../img/".$rowcard['subdominio']."/".$rowcard['logo']?>"  width="100px;"><br>
+            <?php
+            }
+    
     $list = new Card();
     $result = $list->listCardId();
 
     foreach ($result as $row) {
         extract($row);
     }
-    ?>
-    <img src="<?php echo "../img/".$subdominio."/".$logo?>"  width="100px;"><br>
-     
-     <input type="hidden" name="id_cliente" value="<?php echo $id_cliente ?>">  
-     <input type="hidden" name="subdominio" value="<?php echo $subdominio ?>">  
+     ?>   
+        
+       <?php 
+    $list2 = new Card();
+    $result2 = $list2->listImgCardId2();
     
-      <label>Titulo</label>
-     <input type="text" name="titulo">       
-     
-     <label>Imagem</label>
-     <input type="file" name="img"> 
-     
-     <div class="form-diplay-flex">
-        <div> <select name="orientacao">
-            <option value="0">Paisagem</option>
-            <option value="1">Retrato</option>
-         </select>
-        </div>
-        <?php
-            require_once '../Conn2.php';
-            $listcard = $conn2->query("SELECT * FROM imagem WHERE id_cliente = $id_cliente ORDER BY ordem ASC");
-         
-            $contagem = $listcard->rowCount() ;
-            /*echo $contagem;*/
-            
-            foreach ($listcard as $rowcard) {
-            /*echo $rowcard['ordem'];*/
-            }
-         
+    foreach ($result2 as $row2) {
+        extract($row2);
         ?>
-         <div>Ordem:<input type="number" name="ordem" value="<?php  echo $rowcard['ordem'] + 1; ?>" class="input-number"> </div>
+        
+     <input type="hidden" name="id" value="<?php echo $id ?>">  
+     <input type="hidden" name="id_cliente" value="<?php echo $id_cliente ?>">  
          
+     <img src="<?php echo "../img/".$sub."/".$img?>"  class="img-box-card">
+     <label>Titulo</label>
+     <input type="text" name="titulo" value="<?php echo $titulo ?>"> 
+    
+     <div class="form-diplay-flex">
+     
+     <label>Orientação</label>
+     <select name="orientacao">
+         <?php if($orientacao == 0){ 
+            ?><option value="0" selected>Paisagem</option><?php
+        }else{
+            ?><option value="1" selected>Retrato</option><?php
+        }
+         ?>
+        <option value="0">Paisagem</option>
+        <option value="1">Retrato</option>
+     </select>
+          
+     <label>Ordem</label>
+       
+     <input type="number" name="ordem" value="<?php echo $ordem ?>"> 
      </div>
-     <button type="submit" name="salvar" value="salvar" class="bt-green">Salvar</button>
+     <button type="submit" name="salvar" value="salvar" class="bt-orange">Alterar</button>
    
      <a href="ViewCard.php<?php echo "?id=$id_cliente" ?>">
      <button type="button" class="bt-darkblue">Voltar</button></a>
-
     
     
      <?php 
    
     if(isset($_POST['titulo'])){
-        
-        $formatfiles = array("png","jpg","jpeg","gif");
-        $extensao = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
-        
-        if(in_array($extensao, $formatfiles)){
             $create = new Card();
-            $create->createImgCard();
+            $create->updateImgCard();
     
-        }else{
-            
-         ?>
-            <br>
-            <?php echo "Formato de imagem não aceita, somente jpg, png, jpeg e gif";?>
-        <?php
-        }
-    }
-            
+    
+    }}
+     
             
     ?>
     
@@ -142,7 +139,7 @@ if(!isset($_SESSION["user"])){
         <a href="DeleleImagemCard.php<?php echo "?id=$id&id_card=$id_card" ?>">
         <button type="button" class="bt-black">Excluir</button></a>
         
-         <a href="UpdateImageCard.php<?php echo "?id=$id&id_card=$id_card&sub=$subdominio" ?>">
+         <a href="UpdateImagemCard.php<?php echo "?id=$id&id_card=$id_card" ?>">
         <button type="button" class="bt-orange">Alterar</button></a>
 
     </div> 

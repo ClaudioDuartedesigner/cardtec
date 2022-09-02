@@ -37,6 +37,8 @@
             <img src="<?php echo "./adm/img/".$subdominio."/".$card?>"  class="img-card">
         </a>
     </div>
+
+    
     
     
     <?php
